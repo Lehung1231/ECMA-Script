@@ -1,0 +1,141 @@
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+  </head>
+  
+  <body>
+    <form onsubmit="return kiem_tra()">
+        <h1>ĐẶT HÀNG</h1>
+        <div class="boder">
+            <div class="text">
+  
+                <label for="">Số lượng</label>
+                <input id="so_luong" class="input" type="text">
+            </div>
+            <div class="text">
+  
+                <label for="">Sản phẩm</label>
+                <input id="san_pham" class="input" type="text">
+            </div>
+            <div class="text">
+  
+                <label for="">Loại</label>
+                <select class="input" name="" id="loai">
+                    <option value=""></option>
+                    <option value="Loại tốt">Loại tốt</option>
+                    <option value=" Loại Bình thường">Loại bình thường</option>
+                </select>
+            </div>
+            <div class="text">
+                <label for="">Đơn giá</label>
+                <input id="don_gia" class="input" type="text">
+            </div>
+            <div class="text">
+                <label for="">Nơi nhận hàng</label>
+                <input onclick="hien_thi(false)" type="radio" name="city" id=""> <span id="noi">Nội thành</span> 
+                <input onclick="hien_thi(true)" type="radio" name="city" id="phi_vc"><span id="ngoai"> Ngoại thành</span>
+            </div>
+            <div class="text long" style="display: none;">
+                <label for="">Phí vận chuyển</label>
+                <input class="input" type="text" value="100000" id="phi2">
+            </div>
+            <hr>
+       
+            <div> <button onclick="datmua()">Đặt mua</button></div>
+             <div>
+                <p id="sp1"></p>
+                <p id="li1"></p>
+                <p id="gia1"></p>
+                <p id="nhan1"></p>
+                <p id="phi1"></p>
+                <p id="sum1"></p>
+            </div>
+  
+        </div>
+  
+    </form>
+  
+    <script>
+        function hien_thi(abc) {  
+            var phi_vc = document.querySelector(".long");
+            phi_vc.style.display = abc ? "block" : "none"   
+        }
+        function kiem_tra() {
+        var sl = document.getElementById('so_luong')
+         if(sl.value == ""){
+            alert('Vui lòng nhập số lượng')
+                sl.focus()
+                return false;
+         }else if(isNaN(sl.value) == true) {
+                alert('Số lượng phải là số ')
+                sl.focus()
+                return false;}
+            var sp = document.getElementById('san_pham')
+            if (sp.value.length == 0) {
+                alert('Vui lòng nhập tên sản phẩm')
+                sp.focus()
+                return false;
+            }
+            var gia = document.getElementById('don_gia')
+            if (isNaN(gia.value) == true) {
+                alert('Vui lòng nhập số')
+                gia.focus()
+                return false;
+            }
+            else if (parseFloat(gia.value) <= 0) {
+                alert('Gía phải lớn hơn 0 ')
+                gia.focus()
+                return false
+            }
+            else if (gia.value == '') {
+                alert('Vui lòng nhập đơn giá')
+                gia.focus()
+                return false
+            }
+            var loai = document.getElementById('loai')
+            if (loai.value.length == '') {
+                alert('Vui lòng chọn loại sản phẩm')
+                loai.focus()
+                return false
+            }
+            var radioss = document.querySelectorAll('input[name="city"]')
+            if (!radioss[0].checked && !radioss[1].checked) {
+                alert('Vui lòng chọn nơi nhận hàng')
+                // radioss.focus()
+                return false
+                
+            }
+          var sp1 = document.getElementById('sp1');
+          var li1 = document.getElementById('li1');
+          var gia1 = document.getElementById('gia1');
+          var nhan1 = document.getElementById('nhan1');
+          var phi1 = document.getElementById('phi1');
+          var phi2 = document.getElementById('phi2');
+          var sum1 = document.getElementById('sum1');
+          var phi_vc = document.querySelector(".long");
+         
+             sp1.innerHTML = "Sản phẩm :" + sp.value;
+             li1.innerHTML = " Loại : " + loai.value;
+             gia1.innerHTML ="Đơn giá : " + gia.value;
+            
+           
+             if(!radioss[0].checked){
+                phi1.innerHTML = "Phí vận chuyển : " + phi2.value;
+                nhan1.innerHTML = "Nơi nhận : Ngoại thành"  ;
+             }else if(!radioss[1].checked){
+               phi1.innerHTML = " Phí vận chuyển : 0 " ;
+                nhan1.innerHTML = "Nơi nhận : Nội thành"  ;
+             }
+         
+             sum1.innerHTML = "Tổng tiền : " + (sl.value * gia.value);
+            alert('Chúc mừng bạn đã nhập đúng')
+            return false
+  
+        }
+    </script>
+  
+  
+  </body></html>
