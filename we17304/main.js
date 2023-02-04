@@ -6,9 +6,11 @@ import ContactPage from './pages/contact';
 import test from './pages/test';
 import { router } from './libs';
 import ProjectPage from './pages/project';
-document.querySelector('#app').innerHTML = HomePage();
-console.log(HomePage());
+import NotFoundPage from './pages/not-found';
+import ProjectDetailPage from './pages/project-detail';
 
+
+const app = document.querySelector("#app");
 
 const render = (container,content) => {
   container.innerHTML = content();
@@ -29,6 +31,15 @@ router.on('/test',()=>{
 router.on('/project',()=>{
   render(app,ProjectPage);
 })
+router.on("/project/:id",(params)=>{
+  console.log(params);
+  render(app,function(){
+      return ProjectDetailPage(params)
+  })
+})
 
+router.notFound(()=>{
+  render(app,NotFoundPage);
+})
 
 router.resolve();
